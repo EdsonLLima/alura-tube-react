@@ -43,7 +43,7 @@ const StyleBanner = styled.div`
   /* background-image: url(${config["bg-image"]}); */
   background-image: url(${({ bg }) => bg});
   background-color: blue;
-  height: 230px;
+  height: 430px;
 `;
 function Header() {
   return (
