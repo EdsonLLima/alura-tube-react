@@ -30,7 +30,6 @@ const StyleHeader = styled.div`
     border-radius: 50%;
   }
   .user-info {
-    margin-top:50px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -38,10 +37,18 @@ const StyleHeader = styled.div`
     gap: 16px:
   }
 `;
+
+const StyleBanner = styled.div`
+  /* background-image: url("https://images.unsplash.com/photo-1488229297570-58520851e868?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80"); */
+  /* background-image: url(${config["bg-image"]}); */
+  background-image: url(${({ bg }) => bg});
+  background-color: blue;
+  height: 230px;
+`;
 function Header() {
   return (
     <StyleHeader>
-      {/* <img src="banner" alt="" /> */}
+      <StyleBanner bg={config["bg-image"]} />
       <section className="user-info">
         <img src={`https://github.com/${config.github}.png`} alt="Edson Lima" />
         <div>
