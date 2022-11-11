@@ -47,8 +47,9 @@ export default function Search({ valorDoFiltro, setValorDaFiltro }) {
         onChange={(event) => {
           setValorDaBusca(event.target.value);
         }}
+        value={valorDaBusca}
       />
-      <button></button>
+      <button>🔎</button>
     </StyledSearch>
   );
 }
