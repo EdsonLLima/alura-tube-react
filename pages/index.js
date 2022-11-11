@@ -1,3 +1,4 @@
+import React from "react";
 import config from "../config.json";
 import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
@@ -9,13 +10,18 @@ function HomePage() {
   const estiloDaHomePage = {
     // backgroundColor: "red"
   };
+  const [valorDoFiltro, setValorDaFiltro] = React.useState("Angular");
   return (
     <>
       <CSSReset />
       <div style={estiloDaHomePage}>
-        <Menu />
+        {/* Prop Drilling */}
+        <Menu
+          valorDoFiltro={valorDoFiltro}
+          setValorDaFiltro={setValorDaFiltro}
+        />
         <Header />
-        <Timeline playlists={config.playlists} />
+        <Timeline searchValue={valorDoFiltro} playlists={config.playlists} />
       </div>
     </>
   );
@@ -60,7 +66,7 @@ function Header() {
   );
 }
 
-function Timeline(props) {
+function Timeline({ searchValue, ...props }) {
   // console.log("Dentro do componente", props);
   const playlistNames = Object.keys(props.playlists);
   //Statement
@@ -69,19 +75,24 @@ function Timeline(props) {
     <StyledTimeline>
       {playlistNames.map((playlistName) => {
         const videos = props.playlists[playlistName];
-        console.log(videos);
         return (
           <section>
             <h2>{playlistName}</h2>
             <div>
-              {videos.map((video) => {
-                return (
-                  <a href={video.url}>
-                    <img src={video.thumb} alt="" />
-                    <span>{video.title}</span>
-                  </a>
-                );
-              })}
+              {videos
+                .filter((video) => {
+                  const titleNormalize = video.title.toLowerCase();
+                  const searchValueNormalize = searchValue.toLowerCase();
+                  return titleNormalize.includes(searchValueNormalize);
+                })
+                .map((video) => {
+                  return (
+                    <a href={video.url}>
+                      <img src={video.thumb} alt="" />
+                      <span>{video.title}</span>
+                    </a>
+                  );
+                })}
             </div>
           </section>
         );
